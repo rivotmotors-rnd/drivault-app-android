@@ -74,7 +74,6 @@
                         android:scrollbars="vertical"
                         android:textColor="@color/login_text_color">
 
-                        <requestFocus />
 
                     </com.google.android.material.textfield.TextInputEditText>
 

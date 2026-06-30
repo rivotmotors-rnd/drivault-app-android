@@ -13,10 +13,13 @@ import android.os.Bundle
 import com.nextcloud.client.preferences.AppPreferences
 import com.nextcloud.utils.mdm.MDMConfig
 import com.owncloud.android.authentication.AuthenticatorActivity
+
 import com.owncloud.android.ui.activity.BaseActivity
 import com.owncloud.android.ui.activity.FileDisplayActivity
 import com.owncloud.android.ui.activity.SettingsActivity
 import javax.inject.Inject
+
+import com.nextcloud.client.onboarding.FirstRunActivity
 
 class LauncherActivity : BaseActivity() {
 
@@ -33,7 +36,7 @@ class LauncherActivity : BaseActivity() {
                 startActivity(Intent(this, FileDisplayActivity::class.java))
             }
         } else {
-            startActivity(Intent(this, AuthenticatorActivity::class.java))
+            startActivity(Intent(this, FirstRunActivity::class.java))
         }
 
         finish()

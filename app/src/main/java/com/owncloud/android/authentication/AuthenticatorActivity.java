@@ -265,9 +265,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
 
         Uri data = getIntent().getData();
         boolean directLogin = data != null && data.toString().startsWith(getString(R.string.login_data_own_scheme));
-        if (savedInstanceState == null && !directLogin) {
-            onboarding.launchFirstRunIfNeeded(this);
-        }
+
 
         onlyAdd = getIntent().getBooleanExtra(KEY_ONLY_ADD, false) || checkIfViaSSO(getIntent());
 

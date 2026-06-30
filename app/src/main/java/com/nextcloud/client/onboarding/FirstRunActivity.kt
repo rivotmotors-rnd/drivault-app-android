@@ -99,25 +99,35 @@ class FirstRunActivity :
     private fun registerActivityResult() {
         activityResult =
             registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result: ActivityResult ->
+
+                // Hide spinner and enable button again
+                binding.loginProgress.visibility = View.GONE
+                binding.login.isEnabled = true
+                binding.login.setText(R.string.login)
+
                 if (RESULT_OK == result.resultCode) {
                     val data = result.data
                     val accountName = data?.getStringExtra(AccountManager.KEY_ACCOUNT_NAME)
                     val account = userAccountManager?.getAccountByName(accountName)
+
                     if (account == null) {
                         DisplayUtils.showSnackMessage(this, R.string.account_creation_failed)
                         return@registerForActivityResult
                     }
 
                     userAccountManager?.setCurrentOwnCloudAccount(account.name)
+
                     val sharedPreferences =
                         getSharedPreferences("USER_DATA", MODE_PRIVATE)
 
                     sharedPreferences.edit {
                         putString("logged_user_email", account.name)
                     }
+
                     val i = Intent(this, FileDisplayActivity::class.java)
                     i.action = FileDisplayActivity.RESTART
                     i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+
                     startActivity(i)
                     finish()
                 }
@@ -132,12 +142,14 @@ class FirstRunActivity :
 
         binding.login.setOnClickListener {
 
+            binding.login.isEnabled = false
+            binding.login.text = ""
+            binding.loginProgress.visibility = View.VISIBLE
+
             val authenticatorActivityIntent =
                 getAuthenticatorActivityIntent(false)
 
-            activityResult?.launch(
-                authenticatorActivityIntent
-            )
+            activityResult?.launch(authenticatorActivityIntent)
         }
     }
 
