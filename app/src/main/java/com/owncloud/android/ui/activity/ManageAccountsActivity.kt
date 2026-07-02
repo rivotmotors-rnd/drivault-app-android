@@ -220,9 +220,9 @@ class ManageAccountsActivity :
                 userListItems.add(UserListItem(user, !pendingForRemoval))
             }
 
-            if (multiAccountSupport(this)) {
-                userListItems.add(UserListItem())
-            }
+            // if (multiAccountSupport(this)) {
+            //     userListItems.add(UserListItem())
+            // }
 
             return userListItems
         }

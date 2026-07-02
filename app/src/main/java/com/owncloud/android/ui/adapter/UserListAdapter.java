@@ -80,10 +80,8 @@ public class UserListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
     @Override
     public int getItemViewType(int position) {
-        if (position == values.size() - 1 && showAddAccount) {
-            return UserListItem.TYPE_ACTION_ADD;
-        }
-        return UserListItem.TYPE_ACCOUNT;
+        UserListItem item = values.get(position);
+        return item.getType();
     }
 
     @Override

@@ -118,6 +118,8 @@ import java.util.Optional;
 
 import javax.inject.Inject;
 
+import androidx.browser.customtabs.CustomTabsIntent;
+
 import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.IdRes;
 import androidx.annotation.NonNull;
@@ -615,7 +617,7 @@ public abstract class DrawerActivity extends ToolbarActivity
 
         DrawerMenuUtil.filterSearchMenuItems(menu, user);
         DrawerMenuUtil.setupHomeMenuItem(menu, getResources());
-        DrawerMenuUtil.removeMenuItem(menu, R.id.nav_community, !getResources().getBoolean(R.bool.participate_enabled));
+        DrawerMenuUtil.removeMenuItem(menu, R.id.nav_community, true);
         DrawerMenuUtil.removeMenuItem(menu, R.id.nav_shared, !getResources().getBoolean(R.bool.shared_enabled));
         DrawerMenuUtil.removeMenuItem(menu, R.id.nav_logout, !getResources().getBoolean(R.bool.show_drawer_logout));
     }
@@ -645,13 +647,15 @@ public abstract class DrawerActivity extends ToolbarActivity
             pushFragment(NavigatorScreen.Activities.INSTANCE);
         } else if (itemId == R.id.nav_data_migration) {
 
-            Intent browserIntent = new Intent(
-                Intent.ACTION_VIEW,
-                Uri.parse("https://login.drivault.com/index.php/settings/user/migration")
-            );
+            String url = "https://login.drivault.com/index.php/settings/user/migration";
 
-            startActivity(browserIntent);
-        } else if (itemId == R.id.nav_settings) {
+            CustomTabsIntent customTabsIntent = new CustomTabsIntent.Builder()
+                .setShowTitle(true)
+                .build();
+
+            customTabsIntent.launchUrl(this, Uri.parse(url));
+        }
+        else if (itemId == R.id.nav_settings) {
             resetOnlyPersonalAndOnDevice();
             final Intent intent = new Intent(this, SettingsActivity.class);
             startActivity(intent);

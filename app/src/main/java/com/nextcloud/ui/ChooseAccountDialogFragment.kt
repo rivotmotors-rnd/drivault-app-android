@@ -122,9 +122,12 @@ class ChooseAccountDialogFragment :
                 viewThemeUtils
             )
 
-            if (!MDMConfig.multiAccountSupport(requireContext())) {
-                binding.addAccount.visibility = View.GONE
-            }
+            // if (!MDMConfig.multiAccountSupport(requireContext())) {
+            //     binding.addAccount.visibility = View.GONE
+            // }
+
+            // Hide Add Account button permanently
+            binding.addAccount.visibility = View.GONE
 
             binding.accountsList.adapter = adapter
 
@@ -132,9 +135,9 @@ class ChooseAccountDialogFragment :
             binding.currentAccount.root.setOnClickListener {
                 dismiss()
             }
-            binding.addAccount.setOnClickListener {
-                (activity as DrawerActivity).openAddAccount()
-            }
+            // binding.addAccount.setOnClickListener {
+            //     (activity as DrawerActivity).openAddAccount()
+            // }
             binding.manageAccounts.setOnClickListener {
                 (activity as DrawerActivity).openManageAccounts()
             }
