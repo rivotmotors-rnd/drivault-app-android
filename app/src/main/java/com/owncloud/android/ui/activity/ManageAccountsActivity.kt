@@ -167,8 +167,10 @@ class ManageAccountsActivity :
                 resultIntent.putExtra(KEY_CURRENT_ACCOUNT_CHANGED, hasCurrentAccountChanged())
                 setResult(RESULT_OK, resultIntent)
             } else {
-                val intent = Intent(this@ManageAccountsActivity, AuthenticatorActivity::class.java)
-                intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+                val intent = Intent(this@ManageAccountsActivity, FirstRunActivity::class.java)
+                intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or
+                    Intent.FLAG_ACTIVITY_CLEAR_TASK
+
                 startActivity(intent)
             }
 
@@ -320,7 +322,17 @@ class ManageAccountsActivity :
         }
 
         val userListItemArray = userListItems
-        if (userListItemArray.size > SINGLE_ACCOUNT) {
+
+        if (userListItemArray.isEmpty()) {
+            // No accounts left → go to login screen
+            val intent = Intent(this, FirstRunActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or
+                Intent.FLAG_ACTIVITY_CLEAR_TASK
+
+            startActivity(intent)
+            finish()
+        } else if (userListItemArray.size > SINGLE_ACCOUNT) {
+
             userListAdapter = UserListAdapter(
                 this,
                 accountManager,
@@ -332,8 +344,15 @@ class ManageAccountsActivity :
                 viewThemeUtils
             )
             recyclerView?.adapter = userListAdapter
-        } else {
-            onBackPressedDispatcher.onBackPressed()
+        } else if (userListItemArray.size == SINGLE_ACCOUNT) {
+
+            val intent = Intent(this, FirstRunActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or
+                Intent.FLAG_ACTIVITY_CLEAR_TASK or
+                Intent.FLAG_ACTIVITY_CLEAR_TOP
+
+            startActivity(intent)
+            finishAffinity()
         }
     }
 
@@ -390,12 +409,23 @@ class ManageAccountsActivity :
         }
 
         // only one to be (deleted) account remaining
+        // only one account remaining (or no accounts)
         if (users.size < MIN_MULTI_ACCOUNT_SIZE) {
             val resultIntent = Intent()
             resultIntent.putExtra(KEY_ACCOUNT_LIST_CHANGED, true)
             resultIntent.putExtra(KEY_CURRENT_ACCOUNT_CHANGED, true)
             setResult(RESULT_OK, resultIntent)
-            onBackPressedDispatcher.onBackPressed()
+
+            // Check if this was the last account
+            if (users.size <= 1) {
+                val intent = Intent(this, FirstRunActivity::class.java)
+                intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or
+                    Intent.FLAG_ACTIVITY_CLEAR_TASK or
+                    Intent.FLAG_ACTIVITY_CLEAR_TOP
+
+                startActivity(intent)
+                finishAffinity()
+            }
         }
     }
 

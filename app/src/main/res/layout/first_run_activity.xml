@@ -27,6 +27,8 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
+            android:paddingTop="150dp"
+            android:clipToPadding="false"
             tools:ignore="NestedWeights" />
 
         <com.owncloud.android.ui.whatsnew.ProgressIndicator
@@ -68,6 +70,7 @@
                     android:maxWidth="400dp"
                     android:padding="@dimen/standard_padding"
                     android:text="@string/login"
+                    android:textSize="22sp"
                     android:textColor="#FFFFFF"
                     android:textStyle="bold"
                     android:backgroundTint="#40E095"

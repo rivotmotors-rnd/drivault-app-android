@@ -98,6 +98,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/standard_padding"
                     android:text="@string/invite_friends_action"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
                     android:theme="@style/Button.Primary" />
 
             </LinearLayout>
@@ -171,6 +173,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:text="@string/write_email"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
                     android:theme="@style/Button.Primary" />
 
                 <LinearLayout
