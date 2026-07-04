@@ -280,13 +280,18 @@ class InviteFriendsFragment : Fragment() {
             else -> {
                 // Show loading IMMEDIATELY before any checks
                 binding.loadingLayout.visibility = View.VISIBLE
+
                 binding.inviteFriendsSend.text = ""
+                binding.inviteFriendsSend.isClickable = false
 
                 if (isAlreadyInvited(email, mobileUsername)) {
                     binding.inviteFriendsSend.isClickable = false  // ← ADD THIS
                     binding.root.postDelayed({
                         binding.loadingLayout.visibility = View.GONE
-                        binding.inviteFriendsSend.setText(R.string.write_email)
+                        binding.inviteFriendsSend.isClickable = true
+                        binding.inviteFriendsSend.text =
+                            getString(R.string.write_email)
+                        binding.inviteFriendsSend.isEnabled = true
                         binding.inviteFriendsSend.isClickable = true
                         showAppToast("A Drivault user with the same Email ID or Mobile Number already exists")
                     }, 600)
@@ -298,7 +303,10 @@ class InviteFriendsFragment : Fragment() {
 
                     binding.root.postDelayed({
                         binding.loadingLayout.visibility = View.GONE
-                        binding.inviteFriendsSend.setText(R.string.write_email)
+                        binding.inviteFriendsSend.isClickable = true
+                        binding.inviteFriendsSend.text =
+                            getString(R.string.write_email)
+                        binding.inviteFriendsSend.isEnabled = true
 
                         showAppToast("You can send only 9 invitations")
                     }, 600)
@@ -309,8 +317,10 @@ class InviteFriendsFragment : Fragment() {
                 // binding.inviteProgress.visibility = View.VISIBLE
                 // binding.inviteFriendsSend.text = ""
                 // binding.inviteFriendsSend.isEnabled = false
-                binding.loadingLayout.visibility = View.VISIBLE
-                binding.inviteFriendsSend.text = ""
+                // binding.loadingLayout.visibility = View.VISIBLE
+                //
+                // binding.inviteFriendsSend.text = ""
+                // binding.inviteFriendsSend.isClickable = false
                  // if (emailExists) {
                     //
                     //     binding?.loadingLayout?.visibility = View.GONE
@@ -349,8 +359,12 @@ class InviteFriendsFragment : Fragment() {
                             if (emailExists) {
 
                                 binding?.loadingLayout?.visibility = View.GONE
-                                binding?.inviteFriendsSend?.setText(R.string.write_email)
+
+                                binding?.inviteFriendsSend?.text =
+                                    getString(R.string.write_email)
+
                                 binding?.inviteFriendsSend?.isClickable = true
+                                binding?.inviteFriendsSend?.isEnabled = true
 
                                 showAppToast("A Drivault user with the same Email ID already exists") // ← FIXED
 
@@ -363,8 +377,11 @@ class InviteFriendsFragment : Fragment() {
                                         if (mobileExists) {
 
                                             binding?.loadingLayout?.visibility = View.GONE
-                                            binding?.inviteFriendsSend?.setText(R.string.write_email)
+
+                                            binding?.inviteFriendsSend?.text =
+                                                getString(R.string.write_email)
                                             binding?.inviteFriendsSend?.isClickable = true
+                                            binding?.inviteFriendsSend?.isEnabled = true
 
                                             showAppToast("A Drivault user with the same Mobile Number already exists")
 
@@ -614,9 +631,12 @@ class InviteFriendsFragment : Fragment() {
 
                 requireActivity().runOnUiThread {
                     binding?.loadingLayout?.visibility = View.GONE
-                    binding?.inviteFriendsSend?.setText(R.string.write_email)
-                    // binding?.inviteFriendsSend?.isEnabled = true
+
+                    binding?.inviteFriendsSend?.text =
+                        getString(R.string.write_email)
+
                     binding?.inviteFriendsSend?.isClickable = true
+                    binding?.inviteFriendsSend?.isEnabled = true
                     // DisplayUtils.showSnackMessage(
                     //     requireActivity(),
                     //     "API Failed: ${e.message}"
@@ -652,8 +672,12 @@ class InviteFriendsFragment : Fragment() {
 
                 requireActivity().runOnUiThread {
                     binding?.loadingLayout?.visibility = View.GONE
-                    binding?.inviteFriendsSend?.setText(R.string.write_email)
+
+                    binding?.inviteFriendsSend?.text =
+                        getString(R.string.write_email)
+
                     binding?.inviteFriendsSend?.isClickable = true
+                    binding?.inviteFriendsSend?.isEnabled = true
                     // binding?.inviteFriendsSend?.isEnabled = true
                     binding?.inviteFriendsSend?.setText(R.string.write_email)
 
@@ -1264,11 +1288,18 @@ class InviteFriendsFragment : Fragment() {
 
         } else {
 
-            binding.inviteLimitLayout.visibility =
-                View.GONE
+            binding.inviteLimitLayout.visibility = View.GONE
 
-            binding.inviteFriendsAction.visibility =
-                View.VISIBLE
+            if (binding.inviteFriendsForm.visibility == View.VISIBLE) {
+
+                // Form is already open, keep the top button hidden
+                binding.inviteFriendsAction.visibility = View.GONE
+
+            } else {
+
+                // Form is closed, show the top button
+                binding.inviteFriendsAction.visibility = View.VISIBLE
+            }
         }
 
         // Clear old list
