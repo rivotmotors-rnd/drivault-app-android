@@ -6,7 +6,14 @@
  */
 
 package com.owncloud.android.ui.fragment.invite
+// import android.widget.ImageView
+// import android.widget.LinearLayout
+// import android.widget.Toast
+
+import android.accounts.AccountManager
 import android.content.Context
+import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
 import android.text.TextUtils
 import android.util.Log
@@ -15,38 +22,29 @@ import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
 import android.widget.TableRow
 import android.widget.TextView
+import android.widget.Toast
 import androidx.core.content.ContextCompat
+import androidx.core.content.edit
+import androidx.core.net.toUri
 import androidx.fragment.app.Fragment
+import com.google.android.material.snackbar.Snackbar
 import com.nextcloud.utils.extensions.setVisibleIf
 import com.owncloud.android.R
 import com.owncloud.android.databinding.FragmentInviteFriendsBinding
-import com.owncloud.android.utils.DisplayUtils
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import okhttp3.Call
 import okhttp3.Callback
-import androidx.core.content.edit
 import okhttp3.FormBody
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.Response
-import java.io.IOException
-import javax.inject.Inject
-import android.accounts.AccountManager
-import android.content.Intent
-import android.graphics.Color
-import com.google.android.material.snackbar.Snackbar
-// import android.widget.ImageView
-// import android.widget.LinearLayout
-// import android.widget.Toast
-
-import android.widget.LinearLayout
-import android.widget.Toast
-import androidx.core.net.toUri
 import org.json.JSONArray
 import org.json.JSONObject
-
+import java.io.IOException
+import javax.inject.Inject
 
 // import com.google.android.material.snackbar.Snackbar
 
@@ -284,20 +282,20 @@ class InviteFriendsFragment : Fragment() {
                 binding.inviteFriendsSend.text = ""
                 binding.inviteFriendsSend.isClickable = false
 
-                if (isAlreadyInvited(email, mobileUsername)) {
-                    binding.inviteFriendsSend.isClickable = false  // ← ADD THIS
-                    binding.root.postDelayed({
-                        binding.loadingLayout.visibility = View.GONE
-                        binding.inviteFriendsSend.isClickable = true
-                        binding.inviteFriendsSend.text =
-                            getString(R.string.write_email)
-                        binding.inviteFriendsSend.isEnabled = true
-                        binding.inviteFriendsSend.isClickable = true
-                        showAppToast("A Drivault user with the same Email ID or Mobile Number already exists")
-                    }, 600)
-
-                    return
-                }
+                // if (isAlreadyInvited(email, mobileUsername)) {
+                //     binding.inviteFriendsSend.isClickable = false  // ← ADD THIS
+                //     binding.root.postDelayed({
+                //         binding.loadingLayout.visibility = View.GONE
+                //         binding.inviteFriendsSend.isClickable = true
+                //         binding.inviteFriendsSend.text =
+                //             getString(R.string.write_email)
+                //         binding.inviteFriendsSend.isEnabled = true
+                //         binding.inviteFriendsSend.isClickable = true
+                //         showAppToast("A Drivault user with the same Email ID or Mobile Number already exists")
+                //     }, 600)
+                //
+                //     return
+                // }
 
                 if (invitedFriends.size >= 9) {
 
@@ -461,17 +459,17 @@ class InviteFriendsFragment : Fragment() {
         binding.inviteFriendsMobileContainer.error = null
 
     }
-    private fun isAlreadyInvited(
-        email: String,
-        mobile: String
-    ): Boolean {
-
-        return invitedFriends.any {
-
-            it.email.equals(email, ignoreCase = true) ||
-                it.mobile == mobile
-        }
-    }
+    // private fun isAlreadyInvited(
+    //     email: String,
+    //     mobile: String
+    // ): Boolean {
+    //
+    //     return invitedFriends.any {
+    //
+    //         it.email.equals(email, ignoreCase = true) ||
+    //             it.mobile == mobile
+    //     }
+    // }
     private fun checkUserExists(
         searchValue: String,
         onResult: (Boolean) -> Unit
