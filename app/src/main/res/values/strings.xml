@@ -1612,10 +1612,11 @@
     <string name="extension_cannot_be_changed">Extension cannot be changed</string>
     <string name="explore_more_plans">Explore more plans</string>
     <string name="get_discount">Get discount</string>
-    <string name="_35_mo">₹35/mo</string>
+    <string name="_35_mo">₹50/mo</string>
     <string name="_100_gb">100 GB</string>
     <string name="basic">Basic</string>
     <string name="you_ve_invited_the_maximum_9_friends_nupgrade_storage_to_invite_more">You\'ve invited the maximum 9 friends.\n Upgrade for more storage.</string>
     <string name="invitation_limit_reached">Invitation limit reached</string>
     <string name="data_migration">Data Migration</string>
+    <string name="buy_more_storage">Buy More Storage</string>
 </resources>

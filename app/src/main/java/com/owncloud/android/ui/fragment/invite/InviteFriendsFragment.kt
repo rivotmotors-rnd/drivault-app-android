@@ -149,7 +149,7 @@ class InviteFriendsFragment : Fragment() {
 
             val intent = Intent(
                 Intent.ACTION_VIEW,
-                "https://drivault.com".toUri()
+                "https://api.drivault.com/pages/pricing.php".toUri()
             )
 
             startActivity(intent)
@@ -159,7 +159,7 @@ class InviteFriendsFragment : Fragment() {
 
             val intent = Intent(
                 Intent.ACTION_VIEW,
-                "https://drivault.com".toUri()
+                "https://api.drivault.com/pages/pricing.php".toUri()
             )
 
             startActivity(intent)

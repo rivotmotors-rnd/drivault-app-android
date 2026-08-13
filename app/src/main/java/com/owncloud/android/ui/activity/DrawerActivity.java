@@ -664,7 +664,17 @@ public abstract class DrawerActivity extends ToolbarActivity
         } else if (itemId == R.id.nav_invite_friends) {
             resetOnlyPersonalAndOnDevice();
             pushFragment(NavigatorScreen.InviteFriends.INSTANCE);
-        } else if (itemId == R.id.nav_logout) {
+        }else if (itemId == R.id.nav_buy_storage) {
+
+            String url = "https://api.drivault.com/pages/pricing.php";
+
+            CustomTabsIntent customTabsIntent = new CustomTabsIntent.Builder()
+                .setShowTitle(true)
+                .build();
+
+            customTabsIntent.launchUrl(this, Uri.parse(url));
+        }
+        else if (itemId == R.id.nav_logout) {
             resetOnlyPersonalAndOnDevice();
             MenuItem isNewMenuItemChecked = menuItem.setChecked(false);
             Log_OC.d(TAG,"onNavigationItemClicked nav_logout setChecked " + isNewMenuItemChecked);
